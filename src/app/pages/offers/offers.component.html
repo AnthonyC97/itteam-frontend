@@ -1,0 +1,52 @@
+<!-- Modal Trigger -->
+<a class="waves-effect waves-light btn modal-trigger" (click)="openAddModal()">Add Offer</a>
+<table>
+    <thead>
+        <tr>
+            <th>id </th>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor="let offer of offers; let idx = index">
+            <td>{{ offer.id }}</td>
+            <td>{{ offer.name }}</td>
+            <td>
+                <button class="modal-close waves-effect waves-green btn-flat" (click)="openModalEditar(offer)">Edit</button>
+                <button class="modal-close waves-effect waves-green btn-flat" (click)="deleteOfferWithAPI(offer.id, idx)">Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- Modal Structure -->
+<div id="modal1" #modal class="modal">
+    <div class="modal-content">
+        <h4>{{ isEdit ? 'Edit Offer' :'Add Offer'}}</h4>
+    </div>
+    <form [formGroup]="formAddOffer" class="col s12" *ngIf="formAddOffer">
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="name" type="text" class="validate" formControlName="name">
+                <label for="name">Name</label>
+            </div>
+            <div class="input-field col s12">
+                <input id="price" type="number" class="validate" formControlName="price">
+                <label for="price">Price</label>
+            </div>
+            <div class="input-field col s12">
+                <input id="feature" type="text" class="validate" formControlName="feature">
+                <label for="feature">Characters</label>
+            </div>
+            <div class="input-field col s12">
+                <input id="description" type="text" class="validate" formControlName="description">
+                <label for="description">Description</label>
+            </div>
+        </div>
+    </form>
+    <div class="modal-footer">
+        <button class="modal-close waves-effect waves-green btn-flat" (click)="saveInfoWithAPI()">{{ isEdit ? 'Update': 'Create' }}</button>
+    </div>
+</div>
